@@ -69,7 +69,12 @@ pub enum MppError {
     /// A push-mode (`type="hash"`) credential was submitted against a
     /// challenge that specified `feePayer: true`, which the spec forbids.
     PushModeForbidsFeePayer,
-    /// The server's own address appeared where the safety checks forbid it.
+    /// The server's own address appeared as the transfer sender (`transfer.from`)
+    /// or fee/auth payer (`params.payer`) in pull mode, which the server-side
+    /// self-payment safety checks forbid.
+    ///
+    /// Returned by `settle_pull_mode` in `server.rs` when `transfer.from == server`
+    /// or `params.payer == server`.
     ServerAddressConflict,
     /// A call to Stellar RPC failed.
     RpcFailed {
