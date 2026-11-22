@@ -68,6 +68,9 @@ pub enum MppError {
     ForbiddenCredentialType,
     /// A push-mode (`type="hash"`) credential was submitted against a
     /// challenge that specified `feePayer: true`, which the spec forbids.
+    ///
+    /// Returned by `settle_push_mode` in `server.rs` when
+    /// `expected.method_details.fee_payer` is `true`.
     PushModeForbidsFeePayer,
     /// The server's own address appeared where the safety checks forbid it.
     ServerAddressConflict,
