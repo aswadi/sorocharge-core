@@ -64,7 +64,13 @@ pub enum MppError {
         reason: String,
     },
     /// An authorization entry used a credential type the spec forbids for
-    /// pull mode (anything other than legacy `sorobanCredentialsAddress`).
+    /// pull mode (anything other than `SorobanCredentials::Address`).
+    ///
+    /// Returned by `parse_payment_transaction` in `tx.rs` and `extract_auth_signer`
+    /// in `server.rs` when `auth_entry.credentials` is not
+    /// `SorobanCredentials::Address`. (In push mode, `settle_push_mode` in
+    /// `server.rs` explicitly tolerates this variant because the transaction has
+    /// already settled on-chain.)
     ForbiddenCredentialType,
     /// A push-mode (`type="hash"`) credential was submitted against a
     /// challenge that specified `feePayer: true`, which the spec forbids.
